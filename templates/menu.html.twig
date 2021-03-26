@@ -1,0 +1,23 @@
+<nav>
+  <div class="nav-fostrap">
+    <ul>
+      <li>
+        <a href="{{ path('users_home', { id: app.user.id }) }}"
+          >Tableau de bord
+        </a>
+      </li>
+      {% if (app.user.type == 'ROLE_ADMIN') %}
+      <li><a href="{{ path('presence') }}">Presence</a></li>
+      <li><a href="{{ path('users_list') }}">Utilisateurs</a></li>
+      {% endif %}
+      <li><a href="{{ path('profile') }}">Profil</a></li>
+      <li class="logout">
+        <a href="{{ path('app_logout') }}">Logout</a>
+      </li>
+    </ul>
+  </div>
+  <div class="nav-bg-fostrap">
+    <div class="navbar-fostrap"><span></span> <span></span> <span></span></div>
+    <a href="" class="title-mobile">Value IT</a>
+  </div>
+</nav>

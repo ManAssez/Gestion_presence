@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %} {% block title %}Profil!{% endblock %} {% block
+stylesheets %}
+<link rel="stylesheet" href="{{ asset('/assets/css/bootstrap.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('/assets/css/menu.css') }}" />
+<link rel="stylesheet" href="{{ asset('/assets/css/profil.css') }}" />
+{% endblock%} {% block body %}
+<div id="main" style="margin-top: 20px">
+  <div class="container">
+    {% include 'menu.html.twig' %}
+    <div class="content">
+      <div class="row">
+        <div class="col-md-10">
+          <div class="profile-head">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link active" href="">Information</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin-left: 40px">
+        <div class="row">
+          <div class="col-md-6">
+            <label>Nom</label>
+          </div>
+          <div class="col-md-6">
+            <p>{{ app.user.nom }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label>Prénom</label>
+          </div>
+          <div class="col-md-6">
+            <p>{{ app.user.prenom }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label>Nom d'utilisateur</label>
+          </div>
+          <div class="col-md-6">
+            <p>{{ app.user.username }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label>Fonction</label>
+          </div>
+          <div class="col-md-6">
+            <p>{{ app.user.fonction }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label>Numéro matricule</label>
+          </div>
+          <div class="col-md-6">
+            <p>{{ app.user.matricule }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label>Type de compte</label>
+          </div>
+          <div class="col-md-6">
+            <p>{{ app.user.type }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label>Date de création</label>
+          </div>
+          <div class="col-md-6">
+            <p>{{ app.user.DateCreated | date('d-m-Y') }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <label>Adresse MAC</label>
+          </div>
+          <div class="col-md-6">
+            <p>{{ app.user.mac }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

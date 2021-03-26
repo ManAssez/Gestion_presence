@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %} {% block title %}Login!{% endblock%} {% block
+stylesheets %}
+<link rel="stylesheet" href="{{ asset('/assets/css/bootstrap.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('/assets/css/login.css') }}" />
+{% endblock%} {% block body %}
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <div class="fadeIn first">
+      <img
+        src="{{ asset('/assets/images/value.png') }}"
+        id="icon"
+        alt="User Icon"
+      />
+    </div>
+    <form method="post">
+      {% if error %}
+      <div class="alert alert-danger">
+        {{ error.messageKey|trans(error.messageData, 'security') }}
+      </div>
+      {% endif %} {% if app.user %}
+      <div class="mb-3">
+        Vous êtes encore connecté en tant que {{ app.user.username }},
+        <a href="{{ path('app_logout') }}">Logout </a>
+        <a href="{{ path('users_home', { id: app.user.id }) }}">Acceuil</a>
+      </div>
+      {% endif %}
+      <input
+        type="text"
+        value="{{ last_username }}"
+        name="username"
+        id="inputUsername"
+        class="fadeIn second"
+        placeholder="nom d'utilisateur"
+        required
+        autofocus
+      />
+      <input
+        class="pass"
+        type="password"
+        name="password"
+        id="inputPassword"
+        placeholder="mot de passe"
+        required
+      />
+
+      <input
+        type="hidden"
+        name="_csrf_token"
+        value="{{ csrf_token('authenticate') }}"
+      />
+
+      {# Uncomment this section and add a remember_me option below your firewall
+      to activate remember me functionality. See
+      https://symfony.com/doc/current/security/remember_me.html
+
+      <!-- <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" name="_remember_me" /> Remember me
+        </label>
+      </div> -->
+      #}
+
+      <input type="submit" class="fadeIn fourth" value="Se connecter" />
+    </form>
+    <div id="formFooter">
+      <a class="underlineHover" href="{{ path('app_register') }}"
+        >Inscription</a
+      >
+    </div>
+  </div>
+</div>
+{% endblock %}

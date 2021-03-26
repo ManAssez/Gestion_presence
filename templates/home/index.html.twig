@@ -1,0 +1,138 @@
+{% extends 'base.html.twig' %} {% block title %}Acceuil!{% endblock %} {% block
+stylesheets %}
+<link rel="stylesheet" href="{{ asset('/assets/css/bootstrap.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('/assets/css/menu.css') }}" />
+<link rel="stylesheet" href="{{ asset('/assets/css/profil.css') }}" />
+<link rel="stylesheet" href="{{ asset('/assets/css/notification.css') }}" />
+{% endblock%} {% block body %}
+<div id="main" style="margin-top: 20px">
+  <div class="container">
+    {% include 'menu.html.twig' %}
+    <div class="content">
+      {% if duplicate %}
+      <div class="alert alert-info">
+        {{ duplicate }}
+      </div>
+      {% endif %}
+      <div class="row">
+        <div class="col-md-12">
+          <div class="profile-head">
+            <ul class="nav nav-tabs">
+              <li id="{{ duplicate == "" ? "entree_button" : "" }}" class="nav-item">
+                <a
+                  class="nav-link"
+                  href="{{ path('suivi_entree', { id: app.user.id }) }}"
+                  >Entrée</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="{{ path('go_to', { id: app.user.id }) }}"
+                  >Sortie</a
+                >
+              </li>
+
+              <!-- <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="{{ path('suivi_sortie', { id: app.user.id }) }}"
+                  >Télécharger</a
+                >
+              </li> -->
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <h1>
+        Bonjour {{ app.user.nom }} {{ app.user.prenom }}, veuillez choisir une
+        action en dessus!
+      </h1>
+      <input type="hidden" name="nom" id="nom" value="{{ app.user.nom }}" />
+      <input
+        type="hidden"
+        name="nom"
+        id="prenom"
+        value="{{ app.user.prenom }}"
+      />
+      <div
+        id="zani"
+        class="fadeInDown noty_type__success noty_theme__unify--v1"
+      >
+        <div class="noty_body">
+          <div id="asina_azy"></div>
+        </div>
+      </div>
+      <!-- <table class="table table-hover" style="margin-top: -10px !important">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Entrée</th>
+            <th>Sortie</th>
+            <th>Durée</th>
+            <th>Observation</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for data in datas %}
+          <tr>
+            <td>{{ data.date | date('d-m-Y') }}</td>
+            <td>{{ data.heure_entree | date('H:i:s','GMT+3') }}</td>
+            <td>
+              {{ data.heure_sortie  ? data.heure_sortie | date('H:i:s','GMT+3') : "en cours..." }}
+            </td>
+            <td>{{ data.total }}</td>
+            <td>{{ data.observation }}</td>
+          </tr>
+
+          {% endfor %}
+        </tbody>
+      </table> -->
+    </div>
+  </div>
+</div>
+<script>
+  const socket = new WebSocket("ws://localhost:2300");
+  var as = document.getElementById("notif");
+  var c = document.getElementById("entree_button");
+  var nom = document.getElementById("nom");
+  var prenom = document.getElementById("prenom");
+  var asina_azy = document.getElementById("asina_azy");
+  var zani = document.getElementById("zani");
+
+  socket.addEventListener("open", function () {
+    console.log("CONNECTED");
+  });
+
+  socket.addEventListener("message", function (e) {
+    try {
+      const message = JSON.parse(e.data);
+      printMessage(message);
+    } catch (e) {
+      // Catch any errors
+    }
+  });
+
+  c.addEventListener("click", function () {
+    const message = {
+      type: "entree",
+      nom: nom.value,
+      prenom: prenom.value,
+    };
+    socket.send(JSON.stringify(message));
+  });
+
+  function printMessage(e) {
+    zani.style.display = "block";
+    if (e.type === "entree") {
+      asina_azy.innerHTML = e.nom + " " + e.prenom + " vient d'arriver";
+    } else {
+      asina_azy.innerHTML = e.nom + " " + e.prenom + " vient de partir";
+    }
+    setTimeout(() => {
+      zani.style.display = "none";
+    }, 3000);
+  }
+</script>
+{% endblock %}

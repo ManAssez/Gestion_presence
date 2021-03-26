@@ -1,0 +1,71 @@
+[class*="noty_theme__unify--v1"] {
+  box-shadow: 0 25px 15px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  padding: 1.57143rem;
+  width: 200px;
+  position: absolute;
+  margin-top: 150px;
+  z-index: 4;
+}
+.noty_type__success.noty_theme__unify--v1 {
+  background-color: #1cc9e4;
+}
+.noty_body {
+  font-weight: 400;
+  font-size: 1rem;
+  color: #fff;
+}
+
+[class*="noty_theme__unify--v1"] .noty_body {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+/* Simple CSS3 Fade-in-down Animation */
+.fadeInDown {
+  -webkit-animation-name: fadeInDown;
+  animation-name: fadeInDown;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+@-webkit-keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+@media only screen and (max-width: 900px) {
+  [class*="noty_theme__unify--v1"] {
+    margin-top: 30px;
+  }
+}
+
+#zani {
+  display: none;
+}

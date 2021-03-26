@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %} {% block title %}Utilisateurs!{% endblock %} {%
+block stylesheets %}
+<link rel="stylesheet" href="{{ asset('/assets/css/bootstrap.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('/assets/css/menu.css') }}" />
+{% endblock%} {% block body %}
+<div id="main" style="margin-top: 20px">
+  <div class="container">
+    {% include 'menu.html.twig' %}
+    <div class="content" style="margin-top: 40px">
+      <input
+        class="form-control"
+        id="myInput"
+        type="text"
+        placeholder="Search.."
+      />
+      <table class="table table-striped" style="margin-top: 10px">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Fonction</th>
+            <th>Matricule</th>
+            <th>Utilisateur</th>
+            <th>Role</th>
+            <th>Date de création</th>
+            <th>MAC</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="myTable">
+          {% for data in datas %} {% if (data.Username != app.user.username )%}
+          <tr>
+            <td>{{ data.Nom }}</td>
+            <td>{{ data.Prenom }}</td>
+            <td>{{ data.Fonction }}</td>
+            <td>{{ data.Matricule }}</td>
+            <td>{{ data.Username }}</td>
+            <td>{{ data.Type }}</td>
+            <td>{{ data.DateCreated | date('d-m-Y') }}</td>
+            <td>{{ data.Mac }}</td>
+            <td>
+              <a
+                class="btn btn-danger"
+                href="{{ path('users_delete', { id: data.id }) }}"
+                >Supprimer</a
+              >
+            </td>
+          </tr>
+          {% endif %} {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

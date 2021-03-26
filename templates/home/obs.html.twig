@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %} {% block title %}observation!{% endblock%} {%
+block stylesheets %}
+<link rel="stylesheet" href="{{ asset('/assets/css/bootstrap.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('/assets/css/login.css') }}" />
+{% endblock%} {% block body %}
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <div class="fadeIn first">
+      <img
+        src="{{ asset('/assets/images/value.png') }}"
+        id="icon"
+        alt="User Icon"
+      />
+    </div>
+    <form
+      id="sortie_button"
+      action="{{ path('suivi_sortie', { id: id }) }}"
+      method="post"
+    >
+      <input
+        type="text"
+        name="_observation"
+        id="inputUsername"
+        class="fadeIn second"
+        placeholder="veuillez ajouter votre observation"
+        required
+        autofocus
+      />
+      <input type="submit" class="fadeIn fourth" value="Valider" />
+      <input type="hidden" name="nom_" id="nom" value="{{ app.user.nom }}" />
+      <input
+        type="hidden"
+        name="nom"
+        id="prenom_"
+        value="{{ app.user.prenom }}"
+      />
+    </form>
+    <div id="formFooter">
+      <a class="underlineHover" href="{{ path('users_home', { id: id }) }}"
+        >Tableau de bord</a
+      >
+    </div>
+  </div>
+</div>
+<script>
+  const socket = new WebSocket("ws://localhost:2300");
+  var b = document.getElementById("sortie_button");
+  var nom = document.getElementById("nom_");
+  var prenom = document.getElementById("prenom_");
+
+  socket.addEventListener("open", function () {
+    console.log("CONNECTED");
+  });
+  b.addEventListener("submit", function () {
+    const message = {
+      type: "sortie",
+      nom: nom.value,
+      prenom: prenom.value,
+    };
+    socket.send(JSON.stringify(message));
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %} {% block title %}Liste de presence!{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('/assets/css/bootstrap.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('/assets/css/menu.css') }}" />
+{% endblock%} {% block body %}
+<div id="main" style="margin-top: 20px">
+  <div class="container">
+    {% include 'menu.html.twig' %}
+    <div class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="profile-head">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  href="{{ path('create_excel', { id: app.user.id }) }}"
+                  >Télécharger</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <table class="table table-hover" style="margin-top: 10px">
+        <thead>
+          <tr>
+            <th>N° Mle</th>
+            <th>Nom et Prénoms</th>
+            <th>Département</th>
+            <th>Date</th>
+            <th>Entrée</th>
+            <th>Sortie</th>
+            <th>Durée</th>
+            <th>Observation</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for data in datas %}
+          <tr>
+            <td>{{ data.matricule }}</td>
+            <td>{{ data.nom }} {{ data.prenom }}</td>
+            <td>{{ data.fonction }}</td>
+            <td>{{ data.daty | date('d-m-Y') }}</td>
+            <td>{{ data.heure_entree | date('H:i:s') }}</td>
+            <!-- <td>{{ data.heure_entree | date('H:i:s','GMT+3') }}</td> -->
+            <td>
+              {{ data.heure_sortie ? data.heure_sortie | date('H:i:s') : "en cours..." }}
+            </td>
+            <td>{{ data.total }}</td>
+            <td>{{ data.observation }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

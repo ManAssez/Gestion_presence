@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %} {% block title %}Inscription{% endblock %} {%
+block stylesheets %}
+<link rel="stylesheet" href="{{ asset('/assets/css/bootstrap.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('/assets/css/login.css') }}" />
+{% endblock%} {% block body %}
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <div class="fadeIn first">
+      <img
+        src="{{ asset('/assets/images/value.png') }}"
+        id="icon"
+        alt="User Icon"
+      />
+    </div>
+    {% for flashError in app.flashes('verify_email_error') %}
+    <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+    <div class="alert alert-error">
+      {{ form_errors(registrationForm) }}
+    </div>
+    {{ form_start(registrationForm) }}
+    <div class="col-md-12">
+      {{
+        form_row(registrationForm.nom, {
+          label: false,
+          attr: {
+            placeholder: "nom"
+          }
+        })
+      }}
+    </div>
+    <div class="col-md-12">
+      {{
+        form_row(registrationForm.prenom, {
+          label: false,
+          attr: {
+            placeholder: "prénom"
+          }
+        })
+      }}
+    </div>
+    <div class="col-md-12">
+      {{
+        form_row(registrationForm.fonction, {
+          label: false,
+          attr: {
+            placeholder: "fonction"
+          }
+        })
+      }}
+    </div>
+    <div class="col-md-12">
+      {{
+        form_row(registrationForm.matricule, {
+          label: false,
+          attr: {
+            placeholder: "numéro matricule"
+          }
+        })
+      }}
+    </div>
+    <div class="col-md-12">
+      {{
+        form_row(registrationForm.username, {
+          label: false,
+          attr: {
+            placeholder: "nom d'utilisateur"
+          }
+        })
+      }}
+    </div>
+    <div class="col-md-12">
+      {{
+        form_row(registrationForm.plainPassword, {
+          label: false,
+          attr: {
+            placeholder: "password"
+          }
+        })
+      }}
+    </div>
+    <div class="col-md-12">
+      {{
+        form_row(registrationForm.agreeTerms, {
+          label: "Accepter"
+        })
+      }}
+    </div>
+
+    <input type="submit" class="fadeIn fourth" value="Enregistrer" />
+    {{ form_end(registrationForm) }}
+    <div id="formFooter">
+      <a class="underlineHover" href="{{ path('app_login') }}">Se connecter</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
